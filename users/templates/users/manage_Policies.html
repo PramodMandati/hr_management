@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(230,230,230,0.7);
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+{% include "nav.html" %}
+<div class="container">
+    <div class="my-5 main">
+        <div>
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                {{form.as_p}}
+                <button>Add</button>
+            </form>
+        </div>
+        <hr color="black">
+        <div>
+            {% for policy in object_list %}
+                <p>{{policy.policy}}</p>
+                <a href="{% url 'users_app:users_del_policy_page' id=policy.id %}">Delete</a>
+<!--                <a href="">Edit</a>-->
+            {% empty %}
+                <h4>No Policies Added</h4>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").addClass("active");
+</script>
+{% endblock %}

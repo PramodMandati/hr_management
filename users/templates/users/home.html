@@ -1,0 +1,102 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(234,234,234,1);
+    }
+    .svg_img:hover{
+        cursor:pointer;
+    }
+    .svg_img:active{
+        cursor:pointer;
+        transform:scale(1.05);
+    }
+    .block{
+        display:block;
+    }
+    .leave{
+        color:black;
+    }
+    .cus-btn{
+        border-radius:50px;
+        background-color:green;
+        color:white;
+        font-size:20px;u
+    }
+    i{
+        font-size:42px;
+    }
+
+</style>
+{% endblock %}
+
+{% block main %}
+{% include "nav.html" %}
+<div class="container">
+    <div class="my-5 main">
+        <h2>Leave Requests</h2>
+        <hr color="black">
+        {% for obj in objects %}
+            <form id="{{forloop.counter}}" class="alert alert-light d-flex justify-content-between leave" role="alert">
+                {% csrf_token %}
+                <div class="mr-auto">
+                    <h4>{{obj.employee.user.username}}</h4>
+                    <div><strong>Subject:</strong> {{obj.subject}}</div>
+                    <div><strong>Description:</strong> {{obj.description}}</div>
+                    <div><strong>Start Date:</strong> {{obj.start_date}}</div>
+                    <div><strong>End Date:</strong> {{obj.end_date}}</div>
+                </div>
+                <input type="text" hidden value="{{obj.id}}" name="leave_id">
+                <div class="d-flex justify-content-end">
+                    <i title="Approve" data="{{forloop.counter}}" class="fa fa-check-circle mr-3 svg_img approve" style="font-size:48px;color:green"></i>
+                    <i title="Reject" data="{{forloop.counter}}" class="fa fa-times-circle svg_img reject" style="font-size:48px;color:red"></i>
+                </div>
+            </form>
+        {% empty %}
+        <p>No leaves requests</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").addClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").removeClass("active");
+
+    $(".main").on('click','.approve',function(e){
+        let form = $(`#${$(this).attr('data')}`);
+        a=form.serialize() + "&status=true";
+        $.ajax({
+            type:'POST',
+            data:a,
+            url:"http://localhost:8000/leave",
+            success: function(data){
+                form.remove();
+            }
+        });
+    });
+    $(".main").on('click','.reject',function(e){
+        let form = $(`#${$(this).attr('data')}`);
+        a=form.serialize() + "&status=false";
+        $.ajax({
+            type:'POST',
+            data:a,
+            url:"http://localhost:8000/leave",
+            success: function(data){
+                form.remove();
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(230,230,230,0.9);
+    }
+    .navbar{
+        background-color:white;
+        box-shadow:0 0px 0px 0 black;
+    }
+    .navbar .form-control{
+        box-shadow:0 0px 0px 0 white;
+        background-color:rgba(2,250,250,0.9);
+        outline:0;
+        border:0;
+    }
+    #addon-wrapping{
+        border:0;
+        outline:0;
+        background-color:rgba(2,250,250,0.9);
+    }
+</style>
+{% endblock %}
+{% block main %}
+
+{% include "nav.html" %}
+
+<div class="container">
+<br><br>
+{% include "nav.html" %}
+    <h1>Home</h1>
+    <a href="{% url 'users_app:users_logout_page' %}">Logout</a>
+</div>
+{% endblock %}

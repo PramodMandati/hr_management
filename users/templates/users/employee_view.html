@@ -1,0 +1,101 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(234,234,234,1);
+    }
+    .svg_img:hover{
+        cursor:pointer;
+    }
+    .svg_img:active{
+        cursor:pointer;
+        transform:scale(1.05);
+    }
+    .block{
+        display:block;
+    }
+    .leave{
+        color:black;
+    }
+    .cus-btn{
+        border-radius:50px;
+        background-color:green;
+        color:white;
+        font-size:20px;u
+    }
+    i{
+        font-size:42px;
+    }
+
+
+
+</style>
+{% endblock %}
+
+{% block main %}
+{% include "nav.html" %}
+<div class="container">
+    <div class="my-5 main">
+        <div>
+            <div class="profile">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emp_username">Username</label>
+                        <input id="emp_username" class="form-control" readonly value="{{object.user.username}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emp_email">Email</label>
+                        <input id="emp_email" class="form-control" readonly value="{{object.user.email}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emp_team">Team</label>
+                        <input id="emp_team" class="form-control" readonly value="{{object.team}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emp_role">Role</label>
+                        <input id="emp_role" class="form-control" readonly value="{{object.role}}">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="emp_phone">Phone</label>
+                        <input id="emp_phone" class="form-control" readonly value="{{object.phone}}">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="emp_salary">Salary</label>
+                        <input id="emp_salary" class="form-control" readonly value="{{object.salary}}">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-secondary mr-1">Edit Details</a>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").addClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").removeClass("active");
+
+</script>
+{% endblock %}

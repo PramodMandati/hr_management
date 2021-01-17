@@ -1,0 +1,61 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(240,240,240,0.8);
+    }
+    .form-control:focus{
+        box-shadow:0 0 0 0 black;
+    }
+    .main{
+        background-color:white;
+        box-shadow:0 0 10px 0 black;
+    }
+</style>
+{% endblock %}
+
+
+{% block main %}
+{% include 'emp_nav.html' %}
+<div class="container">
+    <div class="my-5 main p-3 border rounded">
+        {% if show_pop_up %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              Leave applied successfully.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endif %}
+        <form method="post" autocomplete="off" spellcheck="false">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form.subject|as_crispy_field}}
+            </div>
+            <div class="form-group">
+                {{form.description|as_crispy_field}}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{form.start_date|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{form.end_date|as_crispy_field}}
+                </div>
+            </div>
+            <button class="btn btn-primary">Apply</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").addClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+</script>
+{% endblock %}

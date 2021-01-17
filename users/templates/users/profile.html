@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(0,0,0,0.8);
+        color:white;
+    }
+    .form-control:focus{
+        box-shadow:0 0 0 0 white;
+    }
+
+</style>
+{% endblock %}
+
+{% block main %}
+{% include "nav.html" %}
+
+<div class="container">
+    <div class="my-5 main">
+        <div>
+            <h2>Password Reset</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input class="form-control" placeholder="New password" name="new_password" type="password" required/>
+                <button class="btn btn-primary mt-1 text-right" type="submit">Update</button>
+            </form>
+        </div>
+        <hr color="black">
+        <div>
+            <h2>FAQS</h2>
+            <a href="{% url 'users_app:users_man_faq_page' %}">Manage FAQS</a>
+            <p><strong>Question</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
+                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
+                sapiente sint vero!
+            </p>
+        </div>
+        <hr color="black">
+        <div>
+            <h2>Policies</h2>
+            <a href="{% url 'users_app:users_man_policy_page' %}">Manage Policies</a>
+            <p><strong>Question</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
+                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
+                sapiente sint vero!
+            </p>
+        </div>
+        <hr color="black">
+        <div>
+            <h2>Holidays</h2>
+            <a href="{% url 'users_app:users_man_holiday_page' %}">Manage Holidays</a>
+            <p><strong>Question</strong></p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
+                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
+                sapiente sint vero!
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").addClass("active");
+
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(240,240,240,0.8);
+    }
+    .form-control:focus{
+        box-shadow:0 0 0 0 black;
+    }
+    .main{
+        background-color:white;
+        box-shadow:0 0 10px 0 black;
+    }
+</style>
+{% endblock %}
+
+
+{% block main %}
+{% include 'emp_nav.html' %}
+<div class="container">
+    <div class="my-5 main p-3 border rounded">
+        {% if show_pop_up %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              Password changed successfully.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endif %}
+        <form method="post" autocomplete="off" spellcheck="false">
+            {% csrf_token %}
+            <label for="emp_pass">New Password:</label>
+            <input id="emp_pass" type="password" class="form-control" autocapitalize="characters" name="emp_new_pass">
+            <button class="btn btn-primary mt-2">Update</button>
+        </form>
+        <br><hr><br>
+        <div class="profile">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="emp_username">Username</label>
+                    <input id="emp_username" class="form-control" readonly value="{{user.username}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="emp_email">Email</label>
+                    <input id="emp_email" class="form-control" readonly value="{{user.email}}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="emp_team">Team</label>
+                    <input id="emp_team" class="form-control" readonly value="{{user.employee.team}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="emp_role">Role</label>
+                    <input id="emp_role" class="form-control" readonly value="{{user.employee.role}}">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="emp_phone">Phone</label>
+                    <input id="emp_phone" class="form-control" readonly value="{{user.employee.phone}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="emp_salary">Salary</label>
+                    <input id="emp_salary" class="form-control" readonly value="{{user.employee.salary}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").addClass("active");
+</script>
+{% endblock %}

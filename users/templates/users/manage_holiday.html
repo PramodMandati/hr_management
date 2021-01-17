@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(230,230,230,0.7);
+    }
+    .form-control:focus{
+        box-shadow:0 0 0 0 white;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+{% include "nav.html" %}
+<div class="container">
+    <div class="my-5 main">
+        <div>
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{form.reason|as_crispy_field}}
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{form.start_date|as_crispy_field}}
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{form.end_date|as_crispy_field}}
+                    </div>
+                </div>
+                <button class="btn btn-success">Add</button>
+            </form>
+        </div>
+        <hr color="black">
+        <div>
+            {% for holiday in object_list %}
+                <p>{{holiday.reason}}</p>
+                <p>{{holiday.start_date}} {{holiday.end_date}}</p>
+                <a href="{% url 'users_app:users_del_holiday_page' id=holiday.id %}">Delete</a>
+<!--                <a href="">Edit</a>-->
+            {% empty %}
+                <h4>No Holidays Added</h4>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").removeClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").addClass("active");
+</script>
+{% endblock %}

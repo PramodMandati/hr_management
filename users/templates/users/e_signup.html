@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Sign UP Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:rgba(230,230,230,0.7);
+    }
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 5px 0px black;
+        background-color:white;
+    }
+    input{
+        autocomplete:off;
+    }
+    .asteriskField {
+        display: none;
+    }
+</style>
+{% endblock %}
+
+
+{% block main %}
+{% include "nav.html" %}
+<div class="container">
+    <div class="box my-5 p-4">
+        {% if created %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                Employee added successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{form.first_name|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{form.last_name|as_crispy_field}}
+                </div>
+            </div>
+            <div class="form-group">
+                {{form.email|as_crispy_field}}
+            </div>
+            <div class="form-group">
+                {{form.username|as_crispy_field}}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{form2.team|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{form2.role|as_crispy_field}}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    {{form2.salary|as_crispy_field}}
+                </div>
+                <div class="form-group col-md-6">
+                    {{form2.phone|attr:"maxlength:10"|as_crispy_field}}
+                </div>
+            </div>
+            <button class="btn btn-success btn-block">Add</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(".nav-item2").removeClass("active");
+    $(".nav-item3").addClass("active");
+    $(".nav-item4").removeClass("active");
+    $(".nav-item5").removeClass("active");
+    $(".nav-item6").removeClass("active");
+
+    $("#id_phone").on("keyup",function(e){
+        this.value = this.value.replaceAll(/[^\d]/g,'');
+    });
+
+
+</script>
+{% endblock %}
