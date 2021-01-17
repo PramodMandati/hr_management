@@ -44,7 +44,7 @@
         <h2>Leave Requests</h2>
         <hr color="black">
         {% for obj in objects %}
-            <form id="{{forloop.counter}}" class="alert alert-light d-flex justify-content-between leave" role="alert">
+            <form id="{{forloop.counter}}" class="alert alert-light d-flex justify-content-between leave" role="alert" action="{% url 'users_app:ajax_leave' %}">
                 {% csrf_token %}
                 <div class="mr-auto">
                     <h4>{{obj.employee.user.username}}</h4>
@@ -80,7 +80,7 @@
         $.ajax({
             type:'POST',
             data:a,
-            url:"http://localhost:8000/leave",
+            url:form.attr('action'),
             success: function(data){
                 form.remove();
             }
@@ -92,7 +92,7 @@
         $.ajax({
             type:'POST',
             data:a,
-            url:"http://localhost:8000/leave",
+            url:form.attr('action'),
             success: function(data){
                 form.remove();
             }

@@ -22,8 +22,8 @@ urlpatterns = [
     path('delete_holiday/<int:id>', delete_holiday, name="users_del_holiday_page"),
 
     # path("testing", Testing.as_view())
-    path('leave',leave_action),
+    path('leave',leave_action, name='ajax_leave'),
     path('search', employee_search, name='users_employee_search_page'),
     path('search/employee/<slug:username>',employee_view, name='users_employee_view_page'),
 ]
-# users_app:users_employee_search_page
+# users_app:ajax_leave
