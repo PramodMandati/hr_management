@@ -34,6 +34,7 @@ def all_access_page(request):
     }
     return render(request, 'users/all_access_page.html', context)
 
+
 @login_required(login_url="/login")
 @user_passes_test(is_admin, login_url='/login')
 def home_page(request):
@@ -276,5 +277,5 @@ def edit_employee_details(request, username):
         obj.phone = request.POST.get('phone')
         obj.salary = request.POST.get('salary')
         obj.save()
-        return render(request, 'users/employee_view.html', {'object': obj})
+        return redirect(f'/search/employee/{user.username}')
     return render(request, 'users/employee_edit_detail.html', {'object': obj})
