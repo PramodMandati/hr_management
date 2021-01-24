@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    is_hr_admin = models.BooleanField(default=True)
+    is_hr_admin = models.BooleanField(default=True)     # no need of this field
 
     def __str__(self):
         return str(self.user.username)
@@ -13,7 +13,7 @@ class Admin(models.Model):
 
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    hr_admin = models.ForeignKey(Admin, on_delete=models.CASCADE)
+    hr_admin = models.ForeignKey(Admin, on_delete=models.CASCADE)       # no need of this field
     is_hr_admin = models.BooleanField(default=False)
     role = models.CharField(max_length=30)
     team = models.CharField(max_length=30)

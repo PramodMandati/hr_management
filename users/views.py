@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.core.mail import send_mail
-
 from .forms import (LoginForm, UserEmployeeForm, EmployeeSignUpForm,
                     FAQForm, PolicyForm, HolidayForm, Search)
 from .models import Employee, FAQS, Policies, Holidays
@@ -61,21 +60,6 @@ def login_page(request):
         return redirect("users_app:users_home_page")
     except:
         return redirect("employee_app:employee_home_page")
-
-
-# def sign_up_page(request):
-#     if request.user.is_authenticated:
-#         return redirect("users_app:users_home_page")
-#     form = SignUpForm(data=request.POST or None)
-#     context = {"show_thing": False, 'form': form}
-#     if form.is_valid():
-#         user = User.objects.create_user(username=request.POST.get('username'),
-#                                         password=request.POST.get('password'),
-#                                         email=request.POST.get('email'))
-#         Admin.objects.create(user=user)
-#         form = SignUpForm()
-#         context.update({'form': form, "show_thing": True})
-#     return render(request, 'users/signup.html', context=context)
 
 
 @login_required(login_url="/login")

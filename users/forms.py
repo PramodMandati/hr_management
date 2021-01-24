@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-
 from .models import Employee, FAQS, Policies, Holidays
 
 
@@ -14,30 +13,6 @@ class LoginForm(forms.Form):
         if not user:
             raise forms.ValidationError("invalid username/password")
         return self.cleaned_data
-
-
-# class SignUpForm(LoginForm):
-#     email = forms.EmailField()
-#
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-#         self.fields['username'].help_text = 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
-#         self.fields['password'].help_text = 'Password must contain minimum length 8, uppercase, lowercase and digits'
-#
-#     def clean_email(self):
-#         email = self.cleaned_data.get('email')
-#         if User.objects.filter(email=email).exists():
-#             raise forms.ValidationError("email already exists")
-#         return email
-#
-#     def clean_username(self):
-#         username = self.cleaned_data.get('username')
-#         if User.objects.filter(username=username).exists():
-#             raise forms.ValidationError("username already exists")
-#         return username
-#
-#     def clean(self):
-#         return self.cleaned_data
 
 
 class UserEmployeeForm(forms.ModelForm):
