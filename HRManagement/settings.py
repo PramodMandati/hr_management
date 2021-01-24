@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import django_heroku
 import os
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'mail.tesing24@gmail.com'
+EMAIL_HOST_PASSWORD = 'gfymdmiwmzlrqbkq'
+EMAIL_USE_TLS = True
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,7 +31,7 @@ SECRET_KEY = 'gw2&cez=!+ftf9$lkxjyy%inxlm1%(ray)mh9dze@s6!ym^ucl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hr--management.herokuapp.com']
+ALLOWED_HOSTS = ['hr--management.herokuapp.com', 'localhost']
 
 # Application definition
 
@@ -84,9 +91,9 @@ DATABASES = {
     }
 }
 
-import dj_database_url
-
-DATABASES['default'] = dj_database_url.config()
+# import dj_database_url
+#
+# DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

@@ -9,13 +9,19 @@
 {% block style %}
 <style>
     body{
-        background-color:rgba(0,0,0,0.8);
-        color:white;
+        background-color:#E8F1F2;
     }
     .form-control:focus{
         box-shadow:0 0 0 0 white;
     }
-
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 1px 0px black;
+        background-color:white;
+    }
+    a:hover{
+        text-decoration:none;
+    }
 </style>
 {% endblock %}
 
@@ -23,45 +29,27 @@
 {% include "nav.html" %}
 
 <div class="container">
-    <div class="my-5 main">
+    <div class="box p-4 my-5 main">
+        {% if show_pop_up %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              Password changed successfully.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+        {% endif %}
         <div>
-            <h2>Password Reset</h2>
             <form method="post">
                 {% csrf_token %}
-                <input class="form-control" placeholder="New password" name="new_password" type="password" required/>
-                <button class="btn btn-primary mt-1 text-right" type="submit">Update</button>
+                <label for="password_reset">New Password:</label>
+                <input id="password_reset" class="form-control" placeholder="New password" name="new_password" type="password" required/>
+                <button class="btn btn-primary mt-2 text-right" type="submit">Update</button>
             </form>
         </div>
         <hr color="black">
-        <div>
-            <h2>FAQS</h2>
-            <a href="{% url 'users_app:users_man_faq_page' %}">Manage FAQS</a>
-            <p><strong>Question</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
-                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
-                sapiente sint vero!
-            </p>
-        </div>
-        <hr color="black">
-        <div>
-            <h2>Policies</h2>
-            <a href="{% url 'users_app:users_man_policy_page' %}">Manage Policies</a>
-            <p><strong>Question</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
-                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
-                sapiente sint vero!
-            </p>
-        </div>
-        <hr color="black">
-        <div>
-            <h2>Holidays</h2>
-            <a href="{% url 'users_app:users_man_holiday_page' %}">Manage Holidays</a>
-            <p><strong>Question</strong></p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci aliquam aperiam atque eaque, eligendi
-                enim excepturi, illum inventore iusto mollitia nihil pariatur perferendis placeat porro quasi quidem
-                sapiente sint vero!
-            </p>
-        </div>
+        <a href="{% url 'users_app:users_man_faq_page' %}">Manage FAQS</a><br>
+        <a href="{% url 'users_app:users_man_policy_page' %}">Manage Policies</a><br>
+        <a href="{% url 'users_app:users_man_holiday_page' %}">Manage Holidays</a>
     </div>
 </div>
 {% endblock %}

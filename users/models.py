@@ -36,4 +36,4 @@ class Policies(models.Model):
 class Holidays(models.Model):
     reason = models.CharField(max_length=200)
     start_date = models.DateField()
-    end_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)

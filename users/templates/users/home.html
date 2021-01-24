@@ -9,7 +9,12 @@
 {% block style %}
 <style>
     body{
-        background-color:rgba(234,234,234,1);
+        background-color:#E8F1F2;
+    }
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 1px 0px black;
+        background-color:white;
     }
     .svg_img:hover{
         cursor:pointer;
@@ -33,7 +38,6 @@
     i{
         font-size:42px;
     }
-
 </style>
 {% endblock %}
 
@@ -41,20 +45,20 @@
 {% include "nav.html" %}
 <div class="container">
     <div class="my-5 main">
-        <h2>Leave Requests</h2>
-        <hr color="black">
+        <h2 class="mb-3">Leave Requests:</h2>
         {% for obj in objects %}
-            <form id="{{forloop.counter}}" class="alert alert-light d-flex justify-content-between leave" role="alert" action="{% url 'users_app:ajax_leave' %}">
+            <form id="{{forloop.counter}}" class="box p-3 mb-3 d-flex justify-content-between leave" role="alert" action="{% url 'users_app:ajax_leave' %}">
                 {% csrf_token %}
                 <div class="mr-auto">
-                    <h4>{{obj.employee.user.username}}</h4>
+                    <h4>{{obj.employee.user.get_full_name}}</h4>
+                    <div><strong>Username:</strong> {{obj.employee.user.username}}</div>
                     <div><strong>Subject:</strong> {{obj.subject}}</div>
                     <div><strong>Description:</strong> {{obj.description}}</div>
                     <div><strong>Start Date:</strong> {{obj.start_date}}</div>
                     <div><strong>End Date:</strong> {{obj.end_date}}</div>
                 </div>
                 <input type="text" hidden value="{{obj.id}}" name="leave_id">
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end ml-2">
                     <i title="Approve" data="{{forloop.counter}}" class="fa fa-check-circle mr-3 svg_img approve" style="font-size:48px;color:green"></i>
                     <i title="Reject" data="{{forloop.counter}}" class="fa fa-times-circle svg_img reject" style="font-size:48px;color:red"></i>
                 </div>

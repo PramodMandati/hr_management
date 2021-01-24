@@ -9,7 +9,18 @@
 {% block style %}
 <style>
     body{
-        background-color:rgba(230,230,230,0.7);
+        background-color:#E8F1F2;
+    }
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 1px 0px black;
+        background-color:white;
+    }
+    a:hover{
+        text-decoration:none;
+    }
+    .delete_btn:hover{
+        cursor:pointer;
     }
 </style>
 {% endblock %}
@@ -17,24 +28,34 @@
 {% block main %}
 {% include "nav.html" %}
 <div class="container">
-    <div class="my-5 main">
+    <div class="box p-4 my-5  main">
         <div>
             <form method="post" autocomplete="off">
                 {% csrf_token %}
-                {{form.as_p}}
-                <button>Add</button>
+                {{form|crispy}}
+                <button class="btn btn-primary">Add</button>
             </form>
         </div>
-        <hr color="black">
-        <div>
-            {% for policy in object_list %}
-                <p>{{policy.policy}}</p>
-                <a href="{% url 'users_app:users_del_policy_page' id=policy.id %}">Delete</a>
-<!--                <a href="">Edit</a>-->
-            {% empty %}
-                <h4>No Policies Added</h4>
-            {% endfor %}
-        </div>
+    </div>
+    <h2>Policies:</h2>
+    <div class="box p-3 my-3">
+        {% for policy in object_list %}
+            <div class="d-flex justify-content-between leave " role="alert">
+                <div class="mr-auto">
+                    <span style="color:black">{{policy.policy}}</span>
+                </div>
+                <div class="d-flex justify-content-end ml-2">
+                    <a style="color:grey" href="{% url 'users_app:users_del_policy_page' id=policy.id %}">
+                        <i title="Delete" class="fa fa-trash delete_btn" style="font-size:20px"></i>
+                    </a>
+                </div>
+            </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% empty %}
+            No Policies Added
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+{% load widget_tweaks %}
+
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+
+{% block style %}
+<style>
+    body{
+        background-color:#E8F1F2;
+    }
+    .svg_img:hover{
+        cursor:pointer;
+    }
+    .svg_img:active{
+        cursor:pointer;
+        transform:scale(1.05);
+    }
+    .block{
+        display:block;
+    }
+    .leave{
+        color:black;
+    }
+    .cus-btn{
+        border-radius:50px;
+        background-color:green;
+        color:white;
+        font-size:20px;u
+    }
+    i{
+        font-size:42px;
+    }
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 0.5px 0px black;
+        background-color:white;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="mt-3 d-flex justify-content-end">
+        <a class="btn btn-primary" href="{% url 'users_app:users_home_page' %}">Login</a>
+    </div>
+    <h2>Policie's:</h2>
+    <div class="my-3 box p-3">
+        {% for policy in policy_object %}
+            <div>{{policy.policy}}</div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% empty %}
+            No Policie's Added
+        {% endfor %}
+    </div>
+    <h2>FAQ's:</h2>
+    <div class="my-3 box p-3">
+        {% for faq in faq_object %}
+            <strong><span style="color:black">{{faq.question}}?</span></strong><br>
+            <span style="color:black">{{faq.answer}}</span><br>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% empty %}
+            No FAQ's Added
+        {% endfor %}
+    </div>
+    <h2>Holiday's:</h2>
+    <div class="my-3 box p-3">
+        {% for holiday in holiday_object %}
+            <strong>Reason: </strong><span style="color:black">{{holiday.reason}}</span><br>
+            {% if holiday.end_date %}
+                <strong>Start date: </strong>{{holiday.start_date}}<br>
+                <strong>End Date: </strong>{{holiday.end_date}}
+            {% else %}
+                <strong>Date: </strong>{{holiday.start_date}}<br>
+            {% endif %}
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% empty %}
+            No Holiday's Added
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+</script>
+{% endblock %}

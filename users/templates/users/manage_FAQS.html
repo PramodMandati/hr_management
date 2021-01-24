@@ -9,34 +9,55 @@
 {% block style %}
 <style>
     body{
-        background-color:rgba(230,230,230,0.7);
+        background-color:#E8F1F2;
     }
-
+    .box{
+        border-radius:5px;
+        box-shadow:0px 0px 1px 0px black;
+        background-color:white;
+    }
+    a:hover{
+        text-decoration:none;
+    }
+    .delete_btn:hover{
+        cursor:pointer;
+    }
 </style>
 {% endblock %}
 
 {% block main %}
 {% include "nav.html" %}
 <div class="container">
-    <div class="my-5 main">
+    <div class="box p-4 my-5  main">
         <div>
             <form method="post" autocomplete="off">
                 {% csrf_token %}
                 {{form|crispy}}
-                <button>Add</button>
+                <button class="btn btn-primary">Add</button>
             </form>
         </div>
-        <hr color="black">
-        <div>
-            {% for faq in object_list %}
-                <p><strong>{{forloop.counter}}) {{faq.question}}</strong></p>
-                <p>{{faq.answer}}</p>
-                <a href="{% url 'users_app:users_del_faq_page' id=faq.id %}">Delete</a>
-<!--                <a href="">Edit</a>-->
-            {% empty %}
-                <h4>No faqs Added</h4>
-            {% endfor %}
-        </div>
+    </div>
+    <h2>FAQ's:</h2>
+    <div class="box p-3 my-3">
+        {% for faq in object_list %}
+            <div class="d-flex justify-content-between leave " role="alert">
+                <div class="mr-auto">
+                    <strong><span style="color:black">{{faq.question}}?</span></strong><br>
+                    <span style="color:black">{{faq.answer}}</span><br>
+                </div>
+                <input type="text" hidden value="{{obj.id}}" name="leave_id">
+                <div class="d-flex justify-content-end ml-2">
+                    <a style="color:grey" href="{% url 'users_app:users_del_faq_page' id=faq.id %}">
+                        <i title="Delete" class="fa fa-trash delete_btn" style="font-size:20px"></i>
+                    </a>
+                </div>
+            </div>
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+        {% empty %}
+            No FAQ's Added
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -12,32 +12,32 @@ class LoginForm(forms.Form):
     def clean(self):
         user = authenticate(**self.cleaned_data)
         if not user:
-            raise forms.ValidationError("invalid credentials")
+            raise forms.ValidationError("invalid username/password")
         return self.cleaned_data
 
 
-class SignUpForm(LoginForm):
-    email = forms.EmailField()
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['username'].help_text = 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
-        self.fields['password'].help_text = 'Password must contain minimum length 8, uppercase, lowercase and digits'
-
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("email already exists")
-        return email
-
-    def clean_username(self):
-        username = self.cleaned_data.get('username')
-        if User.objects.filter(username=username).exists():
-            raise forms.ValidationError("username already exists")
-        return username
-
-    def clean(self):
-        return self.cleaned_data
+# class SignUpForm(LoginForm):
+#     email = forms.EmailField()
+#
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.fields['username'].help_text = 'Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'
+#         self.fields['password'].help_text = 'Password must contain minimum length 8, uppercase, lowercase and digits'
+#
+#     def clean_email(self):
+#         email = self.cleaned_data.get('email')
+#         if User.objects.filter(email=email).exists():
+#             raise forms.ValidationError("email already exists")
+#         return email
+#
+#     def clean_username(self):
+#         username = self.cleaned_data.get('username')
+#         if User.objects.filter(username=username).exists():
+#             raise forms.ValidationError("username already exists")
+#         return username
+#
+#     def clean(self):
+#         return self.cleaned_data
 
 
 class UserEmployeeForm(forms.ModelForm):
@@ -75,12 +75,16 @@ class EmployeeSignUpForm(forms.ModelForm):
 
 
 class FAQForm(forms.ModelForm):
+    answer = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'rows': 3}))
+
     class Meta:
         model = FAQS
         fields = ('question', 'answer')
 
 
 class PolicyForm(forms.ModelForm):
+    policy = forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'rows': 3}))
+
     class Meta:
         model = Policies
         fields = ('policy',)
@@ -93,12 +97,19 @@ class HolidayForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['end_date'].required = False
         self.fields['start_date'].widget = forms.DateInput(attrs={'type': 'date'})
         self.fields['end_date'].widget = forms.DateInput(attrs={'type': 'date'})
 
 
 class Search(forms.Form):
-    username = forms.CharField(max_length=20)
-    role = forms.ModelChoiceField(queryset=Employee.objects.values_list('team', flat=True), required=False)
-    team = forms.ModelChoiceField(queryset=Employee.objects.values_list('team', flat=True), required=False)
+    username = forms.CharField(max_length=20, required=False)
+    role = forms.ModelChoiceField(queryset=Employee.objects.values_list('role', flat=True).distinct().order_by('role'),
+                                  required=False,
+                                  to_field_name='role')
+    team = forms.ModelChoiceField(queryset=Employee.objects.values_list('team', flat=True).distinct().order_by('team'),
+                                  required=False,
+                                  to_field_name='team')
 
+    def clean(self):
+        return self.cleaned_data

@@ -1,15 +1,16 @@
 from django.urls import path
 from .views import (
-    login_page, sign_up_page, home_page, logout_request, employee_account_create,
+    login_page, home_page, logout_request, employee_account_create, all_access_page,
     profile_page, manage_faq, delete_faq, manage_policy, delete_policy, manage_holiday,
-    delete_holiday, leave_action, employee_search, employee_view)
+    delete_holiday, leave_action, employee_search, employee_view, edit_employee_details)
 
 app_name = 'users_app'
 
 urlpatterns = [
-    path('', home_page, name="users_home_page"),
+    path('', all_access_page),
+    path('home', home_page, name="users_home_page"),
     path("login", login_page, name="users_login_page"),
-    path("signup", sign_up_page, name="users_signup_page"),
+    # path("signup", sign_up_page, name="users_signup_page"),
     path('logout', logout_request, name="users_logout_page"),
     path("add_employee", employee_account_create, name="users_add_employee_page"),
 
@@ -25,5 +26,6 @@ urlpatterns = [
     path('leave',leave_action, name='ajax_leave'),
     path('search', employee_search, name='users_employee_search_page'),
     path('search/employee/<slug:username>',employee_view, name='users_employee_view_page'),
+    path('search/employee/<slug:username>/edit',edit_employee_details, name='users_employee_edit_page'),
 ]
-# users_app:ajax_leave
+# users_app:users_home_page
