@@ -19,9 +19,28 @@
 
 ## Login API: <base_url>/login
 * Authentication: username, password in the basic authentication.
+* Input: None
 * Output: Token, which is used for other accessing other APIs.
 
 ## Get Employees API: <base_url>/getEmployees
 * Authentication: The token generated from the Login API is a Bearer token, use that token to access the present API.
 * Input: None
 * Output: All the employee details.
+
+## Create Employee API: <base_url>/createEmployee
+* Authentication: The token generated from the Login API is a Bearer token, use that token to access the present API.
+* Input: Check the below format
+      *{
+           "user": {
+               "first_name": "testing",
+               "last_name": "testing",
+               "email": "Api@pramod.com",
+               "username": "APITesting",
+               "password": "testing24r"
+           },
+           "phone": "233423234",
+           "role": "Role1",
+           "team": "Team1",
+           "salary": 2232323.0
+       }
+* Output: Same above input without password.
