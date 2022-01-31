@@ -8,7 +8,7 @@
 4) Install all the packages which are in the requirements.txt with the following command.
     * pip install -r requirements.txt
 5) Then run following command
-    * python manage.py runserver"
+    * python manage.py runserver
 6) If you got any errors related to db, run the following 2 commands
     * python manage.py makemigrations
     * python manage.py migrate
