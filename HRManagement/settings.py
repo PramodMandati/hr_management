@@ -29,9 +29,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'gw2&cez=!+ftf9$lkxjyy%inxlm1%(ray)mh9dze@s6!ym^ucl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['hr--management.herokuapp.com']
+ALLOWED_HOSTS = ['hr--management.herokuapp.com', '127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'users',
-    'employee'
+    'employee',
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -93,7 +95,7 @@ DATABASES = {
 
 import dj_database_url
 
-DATABASES['default'] = dj_database_url.config()
+# DATABASES['default'] = dj_database_url.config()
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

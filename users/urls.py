@@ -29,3 +29,12 @@ urlpatterns = [
     path('search/employee/<slug:username>/edit',edit_employee_details, name='users_employee_edit_page'),
 ]
 # users_app:users_home_page
+
+
+from .views_api import LoginView, EmployeeListView, EmployeeCreateView
+
+urlpatterns += [
+    path('api/login', LoginView.as_view()),
+    path('api/getEmployees', EmployeeListView.as_view()),
+    path('api/createEmployee', EmployeeCreateView.as_view()),
+]
